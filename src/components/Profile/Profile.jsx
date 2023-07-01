@@ -4,12 +4,12 @@ import { ExitToApp } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 
 import { useGetListQuery } from '../../services/TMDB';
-import { RatedCards } from '../index';
+import RatedCards from '../RatedCards/RatedCards';
 
 function Profile() {
   const { user } = useSelector((state) => state.user);
-  const { data: favoriteMovies, refetch: refetchFavorites } = useGetListQuery({ listName: 'favorite/movies', accountId: user.id, sessionId: localStorage.getItem('session_id'), page: 1 });
-  const { data: watchlistMovies, refetch: refetchWatchlisted } = useGetListQuery({ listName: 'watchlist/movies', accountId: user.id, sessionId: localStorage.getItem('session_id'), page: 1 });
+  const { data: favoriteMovies, refetch: refetchFavorites } = useGetListQuery({ listName: 'favorite/movies', accountId: user.id, sessionId: localStorage.getItem('sessionId'), page: 1 });
+  const { data: watchlistMovies, refetch: refetchWatchlisted } = useGetListQuery({ listName: 'watchlist/movies', accountId: user.id, sessionId: localStorage.getItem('sessionId'), page: 1 });
 
   useEffect(() => {
     refetchFavorites();

@@ -22,17 +22,17 @@ function Navbar() {
   const colorMode = useContext(ColorModeContext);
 
   const token = localStorage.getItem('request_token');
-  const sessionIdFromLocalStorage = localStorage.getItem('session_id');
+  const sessionIdFromLocalStorage = localStorage.getItem('sessionId');
 
   useEffect(() => {
     const logInUser = async () => {
       if (token) {
         if (sessionIdFromLocalStorage) {
-          const { data: userData } = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`);
+          const { data: userData } = await moviesApi.get(`/account?sessionId=${sessionIdFromLocalStorage}`);
           dispatch(setUser(userData));
         } else {
           const sessionId = await createSessionId();
-          const { data: userData } = await moviesApi.get(`/account?session_id=${sessionId}`);
+          const { data: userData } = await moviesApi.get(`/account?sessionId=${sessionId}`);
           dispatch(setUser(userData));
         }
       }

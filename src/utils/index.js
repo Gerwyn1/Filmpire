@@ -18,22 +18,25 @@ export const fetchToken = async () => {
       window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/approved`;
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log('Sorry, your token could not be created.');
   }
 };
 
+// eslint-disable-next-line consistent-return
 export const createSessionId = async () => {
   const token = localStorage.getItem('request_token');
 
   if (token) {
     try {
-      const { data: { session_id } } = await moviesApi.post('authentication/session/new', {
+      const { data: { sessionId } } = await moviesApi.post('authentication/session/new', {
         request_token: token,
       });
-      localStorage.setItem('session_id', session_id);
+      localStorage.setItem('sessionId', sessionId);
 
-      return session_id;
+      return sessionId;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
   }

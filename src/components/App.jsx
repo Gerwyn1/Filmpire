@@ -5,7 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import useStyles from './styles';
 import useAlan from './Alan';
 
-import { Movies, Actors, MovieInfo, Navbar, Profile } from './index';
+import { Movies, Actors, MovieInfo, Profile } from './index';
+import Navbar from './NavBar/NavBar';
 
 function App() {
   const classes = useStyles();

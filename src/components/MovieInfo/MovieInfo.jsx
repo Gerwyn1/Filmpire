@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import useStyles from './styles';
-import { MovieList } from '../index';
+import MovieList from '../MovieList/MovieList';
 import { useGetMovieQuery, useGetRecommendationsQuery, useGetListQuery } from '../../services/TMDB';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 import genreIcons from '../../assets/genres';
@@ -18,9 +18,9 @@ function MovieInfo() {
   const { id } = useParams();
 
   const { data, error, isFetching } = useGetMovieQuery(id);
-  const { data: favoriteMovies } = useGetListQuery({ listName: 'favorite/movies', accountId: user.id, sessionId: localStorage.getItem('session_id'), page: 1 });
-  const { data: watchlistMovies } = useGetListQuery({ listName: 'watchlist/movies', accountId: user.id, sessionId: localStorage.getItem('session_id'), page: 1 });
-  const { data: recommendations } = useGetRecommendationsQuery({ list: '/recommendations', movie_id: id });
+  const { data: favoriteMovies } = useGetListQuery({ listName: 'favorite/movies', accountId: user.id, sessionId: localStorage.getItem('sessionId'), page: 1 });
+  const { data: watchlistMovies } = useGetListQuery({ listName: 'watchlist/movies', accountId: user.id, sessionId: localStorage.getItem('sessionId'), page: 1 });
+  const { data: recommendations } = useGetRecommendationsQuery({ list: '/recommendations', movieId: id });
 
   const [open, setOpen] = useState(false);
   const [isMovieFavorited, setIsMovieFavorited] = useState(false);
@@ -34,7 +34,7 @@ function MovieInfo() {
   }, [watchlistMovies, data]);
 
   const addToFavorites = async () => {
-    await axios.post(`https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${localStorage.getItem('session_id')}`, {
+    await axios.post(`https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&sessionId=${localStorage.getItem('sessionId')}`, {
       media_type: 'movie',
       media_id: id,
       favorite: !isMovieFavorited,
@@ -44,7 +44,7 @@ function MovieInfo() {
   };
 
   const addToWatchList = async () => {
-    await axios.post(`https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${localStorage.getItem('session_id')}`, {
+    await axios.post(`https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${process.env.REACT_APP_TMDB_KEY}&sessionId=${localStorage.getItem('sessionId')}`, {
       media_type: 'movie',
       media_id: id,
       watchlist: !isMovieWatchlisted,
